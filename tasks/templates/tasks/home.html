@@ -1,0 +1,23 @@
+{% extends 'tasks/base.html' %}
+{% block content %}
+<div class="box" id="heading">
+    <h1>{{date}}</h1>
+</div>
+<div class="box">
+    {% for task in tasks %}
+    <form action="{% url 'tasks:delete' %}" method="post">
+        {% csrf_token %}
+    <div class="item">
+        <input type="checkbox" name="checkbox" value="{{task.id}}" onChange="this.form.submit()">
+        <p>{{task.task}}</p>
+    </div>
+    <input type="hidden" name="listName" value=""></input>
+    </form>
+    {% endfor %}
+    <form class="item" action="{% url 'tasks:add' %}" , method="post">
+        {% csrf_token %}
+        <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+        <button type="submit" name="list">+</button>
+    </form>
+</div>
+{% endblock %}
